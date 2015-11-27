@@ -1,0 +1,19 @@
+# Editors etc
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+
+# Berks
+/Berksfile.lock
+/cookbook/Berksfile.lock
+
+# Vagrant
+/.vagrant/
+/Vagrantfile.local
+
+# Test Kitchen
+/.kitchen/
+/.kitchen.local.yml
