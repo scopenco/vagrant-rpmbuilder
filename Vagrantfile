@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     v.name = hostname
     v.memory = 1024
     v.cpus = 1
-    override.vm.box = "parallels/centos-6.7"
+    override.vm.box = "bento/centos-6.7"
     override.vm.synced_folder './src', '/opt/rpmbuilder', mount_options: ['share']
   end
 
