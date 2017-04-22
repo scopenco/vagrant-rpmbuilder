@@ -2,7 +2,7 @@
 
 ### Desciprion
 
-This Vagrant Environment for rpm build on CentOS 6.
+This Vagrant Environment for rpm build on CentOS 7.
 Support build rpms for
 * CentOS 6
 * CentOS 7
@@ -11,7 +11,6 @@ Support build rpms for
 
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [Fusion](https://www.vmware.com/go/downloadfusion) or [Parallels Desktop for Mac Pro Edition](http://www.parallels.com/products/desktop/download/)
 * [Vagrant](https://www.vagrantup.com/downloads.html) 1.7.0 or higher
-* [ChefDK](https://downloads.chef.io/chefdk/1.3.43)
 
 ### Usage
 1. Provision local VM with Vagrant
@@ -22,7 +21,7 @@ vagrant up
 ```
 2. ```vagrant ssh```
 3. ```cd /opt/rpmbulder```
-4. Clone git repository with spec file and sources and run builder script ```./rpmbuild-el6-x86_64.sh```. Place source files in the same directory with spec file.
+4. Clone git repository with spec file and sources and run builder script ```./rpmbuild-el7-x86_64.sh```. Place source files in the same directory with spec file.
 
 ### Authors
 

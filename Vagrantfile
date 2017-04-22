@@ -4,17 +4,26 @@
 
 load 'Vagrantfile.local' if File.exist?('Vagrantfile.local')
 
-hostname = "rpmbuilder.dev"
+hostname = "rpmbuild.dev"
+
+$script = <<SCRIPT
+yum -y install epel-release
+yum -y groupinstall 'Development Tools'
+yum -y install mock git vim-enhanced bash-completion rpmdevtools
+usermod -G mock vagrant
+SCRIPT
 
 Vagrant.configure("2") do |config|
 
   config.vm.hostname = hostname
+  config.vm.box = "bento/centos-7.2"
+  config.vm.provision "shell", inline: $script
 
   config.vm.provider "parallels" do |v, override|
     v.name = hostname
     v.memory = 1024
-    v.cpus = 1
-    override.vm.box = "bento/centos-6.7"
+    v.cpus = 2
+    v.linked_clone = true
     override.vm.synced_folder './src', '/opt/rpmbuilder', mount_options: ['share']
   end
 
@@ -22,7 +31,7 @@ Vagrant.configure("2") do |config|
     v.name = hostname
     v.memory = 1024
     v.cpus = 2
-    override.vm.box = 'bento/centos-6.7'
+    v.linked_clone = true
     override.vm.synced_folder '~', '/opt/Home'
     override.vm.synced_folder './src', '/opt/rpmbuilder'
   end
@@ -31,31 +40,8 @@ Vagrant.configure("2") do |config|
     v.name = hostname
     v.memory = 1024
     v.cpus = 2
-    override.vm.box = 'bento/centos-6.7'
+    v.linked_clone = true
     override.vm.synced_folder '~', '/opt/Home'
     override.vm.synced_folder './src', '/opt/rpmbuilder'
   end
-
-  config.vm.provision :chef_solo do |chef|
-    chef.add_recipe('cookbook')
-  end
-
-  config.berkshelf.enabled = true
-  config.berkshelf.berksfile_path = './cookbook/Berksfile'
-end
-
-# Requirements
-Vagrant.require_version(">= 1.7.0")
-
-required_plugins = ['vagrant-berkshelf']
-missed_plugins = required_plugins.select { |p| !Vagrant.has_plugin?(p) }
-if !missed_plugins.empty?
-  ui = Vagrant::UI::Colored.new()
-  ui.error "---- ERROR ----"
-  ui.error "This Vagrant environment requires following Vagrant plugins:"
-  ui.error "  #{missed_plugins.join("\n  ")}"
-  ui.error ""
-  ui.error "Execute to install them:"
-  ui.error "  vagrant plugin install #{missed_plugins.join(" ")}"
-  exit 1
 end
