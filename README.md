@@ -22,7 +22,7 @@ vagrant up
 ```
 2. ```vagrant ssh```
 3. ```cd /opt/rpmbulder```
-4. Create or clone git repository with spec file and sources and run builder script ```./rpmbuild-6-x86_64.sh```. Place source files in the same directory with spec file.
+4. Clone git repository with spec file and sources and run builder script ```./rpmbuild-el6-x86_64.sh```. Place source files in the same directory with spec file.
 
 ### Authors
 
