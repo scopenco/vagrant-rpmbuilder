@@ -17,3 +17,6 @@
 # Test Kitchen
 /.kitchen/
 /.kitchen.local.yml
+
+# Bundle
+.bundle

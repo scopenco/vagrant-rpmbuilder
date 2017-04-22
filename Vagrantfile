@@ -22,7 +22,17 @@ Vagrant.configure("2") do |config|
     v.name = hostname
     v.memory = 1024
     v.cpus = 2
-    override.vm.box = 'chef/centos-6.7'
+    override.vm.box = 'bento/centos-6.7'
+    override.vm.synced_folder '~', '/opt/Home'
+    override.vm.synced_folder './src', '/opt/rpmbuilder'
+  end
+
+  config.vm.provider "fusion" do |v, override|
+    v.name = hostname
+    v.memory = 1024
+    v.cpus = 2
+    override.vm.box = 'bento/centos-6.7'
+    override.vm.synced_folder '~', '/opt/Home'
     override.vm.synced_folder './src', '/opt/rpmbuilder'
   end
 
